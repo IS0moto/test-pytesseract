@@ -39,9 +39,9 @@ brew install tesseract
 
 ## 🚀 セットアップ
 
-1. **リポジトリのクローン（または移動）:**
+1. **リポジトリのクローン:**
    ```bash
-   cd /home/sabo/usr/test-pytesseract
+   git clone https://github.com/IS0moto/test-pytesseract.git
    ```
 
 2. **依存関係のインストール:**
