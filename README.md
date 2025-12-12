@@ -60,6 +60,31 @@ brew install tesseract
 
 ## 📖 使い方
 
+### Gradio Webアプリケーションの起動
+
+**新機能！** Webブラウザで使える直感的なOCRインターフェースを追加しました。
+
+```bash
+# 依存関係の更新
+uv sync
+
+# Gradioアプリを起動
+uv run app.py
+```
+
+ブラウザで `http://localhost:7860` にアクセスすると、以下の機能が使えます：
+
+**🎨 主な機能:**
+- 📤 画像のドラッグ&ドロップアップロード
+- 🌐 言語選択（日本語、英語、英語+日本語）
+- ⚙️ PSMモード選択（ページセグメンテーション）
+- 🖼️ 画像前処理オプション（グレースケール、コントラスト、シャープネス、ノイズ除去）
+- 📦 バウンディングボックス表示（信頼度で色分け）
+  - 🟢 緑色: 高信頼度 (80%以上)
+  - 🟠 オレンジ色: 中信頼度 (50-80%)
+  - 🔴 赤色: 低信頼度 (50%未満)
+- 📊 単語レベルの詳細データ表示
+
 ### テストプログラムの実行
 
 ```bash
@@ -99,11 +124,17 @@ for i, word in enumerate(data['text']):
 ```
 test-pytesseract/
 ├── README.md              # このファイル
+├── app.py                 # Gradio Webアプリケーション（新規）
 ├── hello.py               # メインテストプログラム
+├── config.py              # OCR設定ファイル（新規）
+├── ocr_engine.py          # OCRエンジンモジュール（新規）
+├── image_preprocessor.py  # 画像前処理モジュール（新規）
+├── utils.py               # ユーティリティ関数（新規）
 ├── pyproject.toml         # プロジェクト設定と依存関係
 ├── uv.lock               # 依存関係のロックファイル
 ├── test_image.png        # テスト用サンプル画像
-├── generated_test.png    # 自動生成されたテスト画像
+├── examples/             # サンプル画像フォルダ（新規）
+├── outputs/              # 処理結果保存フォルダ（新規）
 └── .venv/                # 仮想環境（自動生成）
 ```
 
@@ -147,9 +178,15 @@ text = pytesseract.image_to_string(image, lang='eng+jpn')
 
 ## 📚 依存関係
 
+**コアライブラリ:**
 - **pytesseract** (0.3.13) - Tesseract OCRのPythonラッパー
 - **Pillow** (12.0.0) - Python画像処理ライブラリ
 - **packaging** (25.0) - pytesseractの依存関係
+
+**Webアプリケーション:**
+- **gradio** (4.x) - Webインターフェースフレームワーク
+- **opencv-python** (4.8.x) - 高度な画像処理
+- **pandas** (2.x) - データフレーム操作
 
 ## 💡 ヒント
 
